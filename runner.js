@@ -19,8 +19,8 @@ if (runnerContainer) {
   let blackEnabled = false
 
   if (isMobile()) {
-    checkOrientation(giveInfo, mobileCenterGameContainer)
-    addOrientationEventListeners(giveInfo, mobileCenterGameContainer)
+    checkOrientation(giveInfo)
+    addOrientationEventListeners(giveInfo)
   } else {
     giveInfo()
   }
@@ -199,6 +199,7 @@ if (runnerContainer) {
 
   function giveInfo() {
     document.addEventListener('keydown', startGame)
+    document.addEventListener('touchstart', startMobileGame, { passive: false })
   }
 
   function startGame(e) {
@@ -209,10 +210,22 @@ if (runnerContainer) {
 
     if (actionMap[e.key]) {
       performAction(actionMap[e.key])
-      document.removeEventListener('keydown', startGame)
+      removeStartListeners()
       document.querySelector('.info').classList.add('hidden')
       init()
     }
+  }
+
+  function startMobileGame(e) {
+    performAction('jump')
+    removeStartListeners()
+    document.querySelector('.info').classList.add('hidden')
+    init()
+    e.preventDefault()
+  }
+
+  function removeStartListeners() {
+    document.removeEventListener('keydown', startGame)
   }
 
   function activateElements(speed) {
@@ -245,17 +258,6 @@ if (runnerContainer) {
       }
     }, 15000)
   }
-
-  function mobileCenterGameContainer() {
-    runnerContainer.style.display = 'flex'
-    runnerContainer.style.justifyContent = 'center'
-    runnerContainer.style.alignItems = 'center'
-    runnerContainer.style.height = '100vh'
-    runnerContainer.style.width = '100vw'
-    runnerContainer.style.maxWidth = '100%'
-    runnerContainer.style.maxHeight = '100%'
-    document.body.style.overflow = 'hidden'
-  }
 }
 
 function isMobile() {
@@ -264,9 +266,7 @@ function isMobile() {
   )
 }
 
-function addOrientationEventListeners(fOne, ftwo) {
-  window.addEventListener('orientationchange', () =>
-    checkOrientation(fOne, ftwo)
-  )
-  window.addEventListener('resize', () => checkOrientation(fOne, ftwo))
+function addOrientationEventListeners(f) {
+  window.addEventListener('orientationchange', () => checkOrientation(f))
+  window.addEventListener('resize', () => checkOrientation(f))
 }

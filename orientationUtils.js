@@ -35,12 +35,11 @@ export function hideLandscapeModal() {
   }
 }
 
-export function checkOrientation(fOne, fTwo) {
+export function checkOrientation(callback) {
   if (window.innerWidth > window.innerHeight) {
     hideLandscapeModal()
-    if (typeof fOne === 'function' && typeof fTwo === 'function') {
-      fOne()
-      fTwo()
+    if (typeof callback === 'function') {
+      callback()
     }
   } else {
     showLandscapeModal()
