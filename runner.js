@@ -20,7 +20,7 @@ if (runnerContainer) {
 
   if (isMobile()) {
     checkOrientation(giveInfo, mobileCenterGameContainer)
-    addOrientationEventListeners(giveInfo)
+    addOrientationEventListeners(giveInfo, mobileCenterGameContainer)
   } else {
     giveInfo()
   }
@@ -264,7 +264,9 @@ function isMobile() {
   )
 }
 
-function addOrientationEventListeners(f) {
-  window.addEventListener('orientationchange', () => checkOrientation(f))
-  window.addEventListener('resize', () => checkOrientation(f))
+function addOrientationEventListeners(fOne, ftwo) {
+  window.addEventListener('orientationchange', () =>
+    checkOrientation(fOne, ftwo)
+  )
+  window.addEventListener('resize', () => checkOrientation(fOne, ftwo))
 }
