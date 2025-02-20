@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chicken Runner Plus</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="runner.js" type="module" defer></script>
+  </head>
+  <body class="h-full bg-slate-50">
+    <div class="min-h-full">
+      <header class="bg-slate-100 shadow">
+        <div
+          class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between"
+        >
+          <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+            Chicken Runner
+          </h1>
+        </div>
+      </header>
+
+      <main>
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <div class="runner-container">
+            <div class="score">
+              <span class="title">Score:</span>
+              <b>0</b>
+            </div>
+            <div class="legend hidden">
+              <span>Squash bubbles for <b>+5</b> extra points</span>
+            </div>
+            <p class="info">Press KEY UP or KEY DOWN to start</p>
+            <div id="game">
+              <img src="/images/sky.jpg" alt="sky" class="sky active" />
+              <img src="/images/sky2.jpg" alt="sky" class="sky" />
+              <img src="/images/sky3.jpg" alt="sky" class="sky" />
+              <div id="chicken">
+                <img class="chicken" src="/images/chicken.png" alt="chicken" />
+                <img class="leg left" src="/images/leg.png" alt="chicken leg" />
+                <img
+                  class="leg right"
+                  src="/images/leg.png"
+                  alt="chicken leg"
+                />
+                <img src="/images/red-x.png" alt="x" class="red-x" />
+              </div>
+              <div id="color-bubble" class="wobble obstacle hidden">
+                <img
+                  class="bubble"
+                  src="/images/color-bubble.png"
+                  alt="bubble"
+                />
+              </div>
+              <div class="cactus obstacle hidden">
+                <img src="/images/cactus.png" alt="cactus" />
+              </div>
+              <div id="black-bubble" class="breathe obstacle hidden">
+                <img
+                  class="bubble"
+                  src="/images/black-bubble.png"
+                  alt="bubble"
+                />
+              </div>
+            </div>
+            <div id="ground">
+              <img src="/images/ground.png" alt="ground" class="ground" />
+              <div class="pixels group-1 hidden">
+                <div class="pix1"></div>
+                <div class="pix2"></div>
+                <div class="pix3"></div>
+                <div class="pix4"></div>
+                <div class="pix5"></div>
+              </div>
+              <div class="pixels group-2 hidden">
+                <div class="pix1"></div>
+                <div class="pix2"></div>
+                <div class="pix3"></div>
+                <div class="pix4"></div>
+                <div class="pix5"></div>
+              </div>
+            </div>
+            <div id="prompt" class="hidden">
+              <span class="restart">Play Again?</span>
+              <p>Press any button to continue</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
