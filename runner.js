@@ -199,7 +199,7 @@ if (runnerContainer) {
 
   function giveInfo() {
     document.addEventListener('keydown', startGame)
-    document.addEventListener('touchstart', startMobileGame, { passive: false })
+    // document.addEventListener('touchstart', startMobileGame, { passive: false })
   }
 
   function startGame(e) {
