@@ -30,6 +30,9 @@ if (runnerContainer) {
     circadianInterval = setupCircadianShift()
     displayLegend()
     document.addEventListener('keydown', handleAction)
+    runnerContainer.addEventListener('touchstart', performAction('jump'), {
+      passive: false
+    })
   }
 
   function moveObstacle(obstacle, speed) {
@@ -184,10 +187,6 @@ if (runnerContainer) {
     }, 500)
   }
 
-  function randomDelay() {
-    return Math.random * 10000
-  }
-
   function setupCircadianShift() {
     let x = 1
     return setInterval(function () {
@@ -199,7 +198,8 @@ if (runnerContainer) {
 
   function giveInfo() {
     document.addEventListener('keydown', startGame)
-    // document.addEventListener('touchstart', startMobileGame, { passive: false })
+    document.addEventListener('pointerup', detectDoubleTap(500))
+    runnerContainer.addEventListener('doubletap', startMobileGame)
   }
 
   function startGame(e) {
@@ -226,6 +226,8 @@ if (runnerContainer) {
 
   function removeStartListeners() {
     document.removeEventListener('keydown', startGame)
+    document.removeEventListener('pointerup', detectDoubleTap(500))
+    runnerContainer.removeEventListener('doubletap', startMobileGame)
   }
 
   function activateElements(speed) {
@@ -269,4 +271,24 @@ function isMobile() {
 function addOrientationEventListeners(f) {
   window.addEventListener('orientationchange', () => checkOrientation(f))
   window.addEventListener('resize', () => checkOrientation(f))
+}
+
+function detectDoubleTap(doubleTapMs) {
+  let timeout,
+    lastTap = 0
+  return function detectDoubleTap(event) {
+    const currentTime = new Date().getTime()
+    const tapLength = currentTime - lastTap
+    if (0 < tapLength && tapLength < doubleTapMs) {
+      event.preventDefault()
+      const doubleTap = new CustomEvent('doubletap', {
+        bubbles: true,
+        detail: event
+      })
+      event.target.dispatchEvent(doubleTap)
+    } else {
+      timeout = setTimeout(() => clearTimeout(timeout), doubleTapMs)
+    }
+    lastTap = currentTime
+  }
 }

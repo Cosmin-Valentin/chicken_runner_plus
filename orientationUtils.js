@@ -1,6 +1,7 @@
-import { scaleGame } from './scale.js'
-
 export function showLandscapeModal() {
+  if (document.getElementById('landscape-modal') != null) {
+    return
+  }
   const modal = document.createElement('div')
   modal.id = 'landscape-modal'
   modal.style.cssText = `
@@ -42,8 +43,6 @@ export function checkOrientation(callback) {
     hideLandscapeModal()
     if (typeof callback === 'function') {
       callback()
-      scaleGame
-      document.addEventListener('resize', scaleGame)
     }
   } else {
     showLandscapeModal()
