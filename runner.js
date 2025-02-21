@@ -12,6 +12,7 @@ if (runnerContainer) {
   const skies = document.querySelectorAll('.sky')
   const prompt = document.getElementById('prompt')
   const legend = document.querySelector('.legend')
+  const info = document.querySelector('.info')
   let hit = false
   let counter = 0
   let circadianInterval
@@ -19,6 +20,7 @@ if (runnerContainer) {
   let blackEnabled = false
 
   if (isMobile()) {
+    info.textContent = 'Double TAP to start'
     checkOrientation(giveInfo)
     addOrientationEventListeners(giveInfo)
   } else {
@@ -30,9 +32,7 @@ if (runnerContainer) {
     circadianInterval = setupCircadianShift()
     displayLegend()
     document.addEventListener('keydown', handleAction)
-    runnerContainer.addEventListener('touchstart', performAction('jump'), {
-      passive: false
-    })
+    runnerContainer.addEventListener('touchstart', jumpForMobile)
   }
 
   function moveObstacle(obstacle, speed) {
@@ -114,7 +114,9 @@ if (runnerContainer) {
     prompt.classList.add('flex')
     clearInterval(circadianInterval)
     document.removeEventListener('keydown', handleAction)
+    runnerContainer.removeEventListener('touchstart', jumpForMobile)
     document.addEventListener('keydown', () => location.reload())
+    document.addEventListener('touchstart', () => location.reload())
   }
 
   function getRandomCount(num) {
@@ -211,17 +213,16 @@ if (runnerContainer) {
     if (actionMap[e.key]) {
       performAction(actionMap[e.key])
       removeStartListeners()
-      document.querySelector('.info').classList.add('hidden')
+      info.classList.add('hidden')
       init()
     }
   }
 
-  function startMobileGame(e) {
+  function startMobileGame() {
     performAction('jump')
     removeStartListeners()
-    document.querySelector('.info').classList.add('hidden')
+    info.classList.add('hidden')
     init()
-    e.preventDefault()
   }
 
   function removeStartListeners() {
@@ -259,6 +260,11 @@ if (runnerContainer) {
         legend.classList.add('hidden')
       }
     }, 15000)
+  }
+
+  function jumpForMobile(e) {
+    performAction('jump')
+    e.preventDefault()
   }
 }
 
