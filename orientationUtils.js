@@ -10,11 +10,11 @@ export function showLandscapeModal() {
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+      background-color: rgba(0, 0, 0, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999; /* Ensure it's on top */
+      z-index: 9999;
     `
 
   const modalContent = document.createElement('div')
